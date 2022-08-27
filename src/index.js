@@ -28,7 +28,9 @@ async function refreshAPI() {
     const geocodeLon = geocode[0].lon;
 
     console.log(geocodeLat, geocodeLon);
-    
+
+    return geocodeLat, geocodeLon;
+
   } catch (err) {
     console.log(err);
   }
@@ -39,16 +41,16 @@ refreshAPI();
 // Current Weather Data
 // https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API key}
 
-// currentWeatherAPI = () => {
-//   fetch(
-//     "https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid=1228246814ef93d1b972cc316a42abeb",
-//     { mode: "cors" }
-//   )
-//     .then((response) => response.json())
-//     .then((response) => {
-//       console.log(response);
-//     })
-//     .catch(console.err);
-// };
+currentWeatherAPI = (geocodeLat, geocodeLon) => {
+  fetch(
+    `https://api.openweathermap.org/data/2.5/weather?lat=${geocodeLat}&lon=${geocodeLon}&appid=1228246814ef93d1b972cc316a42abeb`,
+    { mode: "cors" }
+  )
+    .then((response) => response.json())
+    .then((response) => {
+      console.log(response);
+    })
+    .catch(console.err);
+};
 
-// currentWeatherAPI();
+currentWeatherAPI(geocodeLat, geocodeLon);
