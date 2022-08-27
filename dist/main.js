@@ -15,7 +15,7 @@
   \**********************/
 /***/ (() => {
 
-eval("\n\n//# sourceURL=webpack://weatherapp/./src/index.js?");
+eval("/* eslint-disable no-console */\n/* eslint-disable no-undef */\n// Geocoding API\n// Promise Version\nrefreshAPI = () => {\n  fetch(\n    'http://api.openweathermap.org/geo/1.0/direct?q=New York,USA&limit=5&appid=1228246814ef93d1b972cc316a42abeb',\n    { mode: 'cors' },\n  )\n    .then((response) => response.json())\n    .then((response) => {\n      console.log(response);\n      console.log(response[0].lat);\n      console.log(response[0].lon);\n    })\n    .catch(console.err);\n};\n\nrefreshAPI();\n\n\n//# sourceURL=webpack://weatherapp/./src/index.js?");
 
 /***/ })
 
