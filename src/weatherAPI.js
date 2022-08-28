@@ -13,7 +13,25 @@ export default async function currentWeather(location) {
       { mode: "cors" }
     );
     const weatherAPI = await weatherResponse.json();
-    console.log(weatherAPI);
+    const weatherLocation = weatherAPI.name;
+    const weatherDescription = weatherAPI.weather[0].description;
+    const weatherTemperature = weatherAPI.main.temp;
+    const weatherFeel = weatherAPI.main.feels_like;
+    const weatherHumidity = weatherAPI.main.humidity;
+    const weatherWindSpeed = weatherAPI.wind.speed;
+    // weatherAPI.clouds
+    // console.log(weatherAPI);
+
+    const weatherObject = [
+      weatherLocation,
+      weatherDescription,
+      weatherTemperature,
+      weatherFeel,
+      weatherHumidity,
+      weatherWindSpeed,
+    ];
+
+    console.log(weatherObject);
   } catch (err) {
     console.log(err);
   }
