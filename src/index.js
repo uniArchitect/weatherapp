@@ -26,6 +26,9 @@ USER_INPUT_CONTAIN_DIV.append(LOCATION_INPUT, LOCATION_UPDATE_BTN);
 
 // Event - Update location
 LOCATION_UPDATE_BTN.addEventListener("click", () => {
+  // Function - Modify location string to be consistent
   let location = LOCATION_INPUT.value;
   currentWeather(location);
 });
+
+export { WEATHER_CARD_CONTAIN_DIV };
