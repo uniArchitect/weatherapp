@@ -1,0 +1,33 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
+
+body,
+html {
+  height: 95%;
+  /* background-color: #f8fafc; */
+  /* background-color: #222629; */
+  font-family: "Montserrat", sans-serif;
+  /* color: #f8fafc; */
+}
+
+.main-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    margin: 2em;
+    gap: .25em;
+}
+
+.input-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1em;
+}
+
+.weather-container {
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
+    height: 100%;
+    background: #557a9b;
+    border-radius: 1em;
+}
