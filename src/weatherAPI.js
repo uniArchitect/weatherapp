@@ -1,3 +1,5 @@
+import weatherObject from "./localeWeatherObject";
+
 export default async function currentWeather(location) {
   try {
     const geocodeResponse = await fetch(
@@ -22,16 +24,16 @@ export default async function currentWeather(location) {
     // weatherAPI.clouds
     // console.log(weatherAPI);
 
-    const weatherObject = [
+    const cityWeather = new weatherObject(
       weatherLocation,
       weatherDescription,
       weatherTemperature,
       weatherFeel,
       weatherHumidity,
-      weatherWindSpeed,
-    ];
+      weatherWindSpeed
+    );
 
-    console.log(weatherObject);
+    console.log(cityWeather);
   } catch (err) {
     console.log(err);
   }

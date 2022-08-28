@@ -120,13 +120,23 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _sty
 
 /***/ }),
 
+/***/ "./src/localeWeatherObject.js":
+/*!************************************!*\
+  !*** ./src/localeWeatherObject.js ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ weatherObject)\n/* harmony export */ });\nclass weatherObject {\n  constructor(\n    weatherLocation,\n    weatherDescription,\n    weatherTemperature,\n    weatherFeel,\n    weatherHumidity,\n    weatherWindSpeed\n  ) {\n    this.location = weatherLocation;\n    this.description = weatherDescription;\n    this.temperature = weatherTemperature;\n    this.feel = weatherFeel;\n    this.humidity = weatherHumidity;\n    this.wind = weatherWindSpeed;\n  }\n}\n\n\n//# sourceURL=webpack://weatherapp/./src/localeWeatherObject.js?");
+
+/***/ }),
+
 /***/ "./src/weatherAPI.js":
 /*!***************************!*\
   !*** ./src/weatherAPI.js ***!
   \***************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ currentWeather)\n/* harmony export */ });\nasync function currentWeather(location) {\n  try {\n    const geocodeResponse = await fetch(\n      `http://api.openweathermap.org/geo/1.0/direct?q=${location},USA&limit=5&appid=1228246814ef93d1b972cc316a42abeb`,\n      { mode: \"cors\" }\n    );\n    const geocode = await geocodeResponse.json();\n    const geocodeLat = geocode[0].lat;\n    const geocodeLon = geocode[0].lon;\n\n    const weatherResponse = await fetch(\n      `https://api.openweathermap.org/data/2.5/weather?lat=${geocodeLat}&lon=${geocodeLon}&appid=1228246814ef93d1b972cc316a42abeb`,\n      { mode: \"cors\" }\n    );\n    const weatherAPI = await weatherResponse.json();\n    const weatherLocation = weatherAPI.name;\n    const weatherDescription = weatherAPI.weather[0].description;\n    const weatherTemperature = weatherAPI.main.temp;\n    const weatherFeel = weatherAPI.main.feels_like;\n    const weatherHumidity = weatherAPI.main.humidity;\n    const weatherWindSpeed = weatherAPI.wind.speed;\n    // weatherAPI.clouds\n    // console.log(weatherAPI);\n\n    const weatherObject = [\n      weatherLocation,\n      weatherDescription,\n      weatherTemperature,\n      weatherFeel,\n      weatherHumidity,\n      weatherWindSpeed,\n    ];\n\n    console.log(weatherObject);\n  } catch (err) {\n    console.log(err);\n  }\n}\n\n\n//# sourceURL=webpack://weatherapp/./src/weatherAPI.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"default\": () => (/* binding */ currentWeather)\n/* harmony export */ });\n/* harmony import */ var _localeWeatherObject__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./localeWeatherObject */ \"./src/localeWeatherObject.js\");\n\n\nasync function currentWeather(location) {\n  try {\n    const geocodeResponse = await fetch(\n      `http://api.openweathermap.org/geo/1.0/direct?q=${location},USA&limit=5&appid=1228246814ef93d1b972cc316a42abeb`,\n      { mode: \"cors\" }\n    );\n    const geocode = await geocodeResponse.json();\n    const geocodeLat = geocode[0].lat;\n    const geocodeLon = geocode[0].lon;\n\n    const weatherResponse = await fetch(\n      `https://api.openweathermap.org/data/2.5/weather?lat=${geocodeLat}&lon=${geocodeLon}&appid=1228246814ef93d1b972cc316a42abeb`,\n      { mode: \"cors\" }\n    );\n    const weatherAPI = await weatherResponse.json();\n    const weatherLocation = weatherAPI.name;\n    const weatherDescription = weatherAPI.weather[0].description;\n    const weatherTemperature = weatherAPI.main.temp;\n    const weatherFeel = weatherAPI.main.feels_like;\n    const weatherHumidity = weatherAPI.main.humidity;\n    const weatherWindSpeed = weatherAPI.wind.speed;\n    // weatherAPI.clouds\n    // console.log(weatherAPI);\n\n    const cityWeather = new _localeWeatherObject__WEBPACK_IMPORTED_MODULE_0__[\"default\"](\n      weatherLocation,\n      weatherDescription,\n      weatherTemperature,\n      weatherFeel,\n      weatherHumidity,\n      weatherWindSpeed\n    );\n\n    console.log(cityWeather);\n  } catch (err) {\n    console.log(err);\n  }\n}\n\n\n//# sourceURL=webpack://weatherapp/./src/weatherAPI.js?");
 
 /***/ })
 
