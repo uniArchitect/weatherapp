@@ -28,6 +28,15 @@ html {
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(3, 1fr);
   height: 100%;
-  background: #557a9b;
-  border-radius: 1em;
+  /* background: #557a9b; */
+  /* border-radius: 1em; */
+}
+
+.weather-card {
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+    padding: 1em;
+    border: 1px solid black;
+    border-radius: 1em;
 }
