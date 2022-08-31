@@ -18,28 +18,30 @@ export default class weatherObject {
     this.wind = weatherWindSpeed;
   }
 
-// Change temperature from Kelvin to Celsius / Fahrenheit 
-// Convert to Celsius = K-273.15
-// Convert to Fahrenheit = 1.8(K-273)+32
+  // Change temperature from Kelvin to Celsius / Fahrenheit
+  // Convert to Celsius = K-273.15
+  // Convert to Fahrenheit = 1.8(K-273)+32
 
-static convertCelsius = () => {
-    let cTemperature = this.description-273.15;
-    return cTemperature;
-}
+  static convertCelsius = (weatherObject) => {
+    let cTemperature = weatherObject.description - 273.15;
+    let cFeel = weatherObject.feel - 273.15;
+    return cTemperature, cFeel;
+  };
 
-static convertFahrenheit = () => {
-    let fTemperature = 1.8(this.description-273)+32;
-    return fTemperature;
-}
+  static convertFahrenheit = (weatherObject) => {
+    let fTemperature = 1.8(weatherObject.description - 273) + 32;
+    let fFeel = 1.8(weatherObject.feel - 273) + 32;
+    return fTemperature, fFeel;
+  };
 
-// Toggle between both
+  // Event - Toggle between both
 
-// Humidity display as percentage
+  // Humidity display as percentage
 
-// Wind speed defined as mph or kph?
+  // Wind speed defined as mph or kph?
 
-// Description string is adjusted to be capitalized
-  
+  // Description string is adjusted to be capitalized
+
   static appendWeatherInfo = (weatherObject) => {
     const weatherCard = document.createElement("div");
     weatherCard.classList.add("weather-card");
