@@ -25,7 +25,10 @@ export default class weatherObject {
   static convertCelsius = (weatherObject) => {
     let cTemperature = weatherObject.temperature - 273.15;
     let cFeel = weatherObject.feel - 273.15;
-    return cTemperature;
+
+    let cArray = [cTemperature, cFeel];
+
+    return cArray;
   };
 
   static convertFahrenheit = (weatherObject) => {
@@ -39,9 +42,12 @@ export default class weatherObject {
 
   // Event - Toggle between both
 
-  // Humidity display as percentage
-
   // Wind speed defined as mph or kph?
+static convertMPH = (weatherObject) => {
+    let mph = 2.24 * (weatherObject.wind);
+
+    return mph;
+}
 
   // Description string is adjusted to be capitalized
 
@@ -51,6 +57,7 @@ export default class weatherObject {
 
     let fahrenheit = this.convertFahrenheit(weatherObject)[0];
     let fahrenheitFeel = this.convertFahrenheit(weatherObject)[1];
+    let windSpeedConverted = this.convertMPH(weatherObject);
 
     // Define information in weather card
     weatherCard.innerHTML = `
@@ -59,7 +66,7 @@ export default class weatherObject {
     <p>Temperature: ${fahrenheit}</p>
     <p>Feels like: ${fahrenheitFeel}</p>
     <p>Humidity: ${weatherObject.humidity}%</p>
-    <p>Wind speed: ${weatherObject.wind}</p>
+    <p>Wind speed: ${windSpeedConverted}</p>
     `;
 
     // Change background image based on temperature ranges (<=32, snowy, 33=<, sunny)
