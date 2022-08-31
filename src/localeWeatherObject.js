@@ -23,15 +23,18 @@ export default class weatherObject {
   // Convert to Fahrenheit = 1.8(K-273)+32
 
   static convertCelsius = (weatherObject) => {
-    let cTemperature = weatherObject.description - 273.15;
+    let cTemperature = weatherObject.temperature - 273.15;
     let cFeel = weatherObject.feel - 273.15;
-    return cTemperature, cFeel;
+    return cTemperature;
   };
 
   static convertFahrenheit = (weatherObject) => {
-    let fTemperature = 1.8(weatherObject.description - 273) + 32;
-    let fFeel = 1.8(weatherObject.feel - 273) + 32;
-    return fTemperature, fFeel;
+    let fTemperature = 1.8 * (weatherObject.temperature - 273) + 32;
+    let fFeel = 1.8 * (weatherObject.feel - 273) + 32;
+
+    let fArray = [fTemperature, fFeel];
+
+    return fArray;
   };
 
   // Event - Toggle between both
@@ -46,13 +49,16 @@ export default class weatherObject {
     const weatherCard = document.createElement("div");
     weatherCard.classList.add("weather-card");
 
+    let fahrenheit = this.convertFahrenheit(weatherObject)[0];
+    let fahrenheitFeel = this.convertFahrenheit(weatherObject)[1];
+
     // Define information in weather card
     weatherCard.innerHTML = `
     <p>Location: ${weatherObject.location}</p>
     <p>Description: ${weatherObject.description}</p>
-    <p>Temperature: ${weatherObject.temperature}</p>
-    <p>Feels like: ${weatherObject.feel}</p>
-    <p>Humidity: ${weatherObject.humidity}</p>
+    <p>Temperature: ${fahrenheit}</p>
+    <p>Feels like: ${fahrenheitFeel}</p>
+    <p>Humidity: ${weatherObject.humidity}%</p>
     <p>Wind speed: ${weatherObject.wind}</p>
     `;
 
