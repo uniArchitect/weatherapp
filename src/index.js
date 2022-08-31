@@ -28,6 +28,10 @@ USER_INPUT_CONTAIN_DIV.append(LOCATION_INPUT, LOCATION_UPDATE_BTN);
 LOCATION_UPDATE_BTN.addEventListener("click", () => {
   // Function - Modify location string to be consistent
   let location = LOCATION_INPUT.value;
+
+  // Event - Clear input field after click
+
+  // Event - Append information to weather container
   currentWeather(location);
 });
 
