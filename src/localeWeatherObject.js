@@ -18,6 +18,20 @@ export default class weatherObject {
     this.wind = weatherWindSpeed;
   }
 
+  // Description string is adjusted to be capitalized
+  static capEachWord = (weatherObject) => {
+    const description = weatherObject.description.split(" ");
+    console.log(description);
+
+    for (let i = 0; i < description.length; i++) {
+        description[i] = description[i][0].toUpperCase() + description[i].substr(1);
+    }
+
+    let newDescription = description.join(" ");
+
+    return newDescription;
+  }
+
   // Change temperature from Kelvin to Celsius / Fahrenheit
   // Convert to Celsius = K-273.15
   // Convert to Fahrenheit = 1.8(K-273)+32
@@ -49,8 +63,6 @@ static convertMPH = (weatherObject) => {
     return mph;
 }
 
-  // Description string is adjusted to be capitalized
-
   static appendWeatherInfo = (weatherObject) => {
     const weatherCard = document.createElement("div");
     weatherCard.classList.add("weather-card");
@@ -58,11 +70,12 @@ static convertMPH = (weatherObject) => {
     let fahrenheit = this.convertFahrenheit(weatherObject)[0];
     let fahrenheitFeel = this.convertFahrenheit(weatherObject)[1];
     let windSpeedConverted = this.convertMPH(weatherObject);
+    let description = this.capEachWord(weatherObject);
 
     // Define information in weather card
     weatherCard.innerHTML = `
     <p>Location: ${weatherObject.location}</p>
-    <p>Description: ${weatherObject.description}</p>
+    <p>Description: ${description}</p>
     <p>Temperature: ${fahrenheit}°F</p>
     <p>Feels Like: ${fahrenheitFeel}°F</p>
     <p>Humidity: ${weatherObject.humidity}%</p>
