@@ -21,16 +21,17 @@ export default class weatherObject {
   // Description string is adjusted to be capitalized
   static capEachWord = (weatherObject) => {
     const description = weatherObject.description.split(" ");
-    console.log(description);
+    // console.log(description);
 
     for (let i = 0; i < description.length; i++) {
-        description[i] = description[i][0].toUpperCase() + description[i].substr(1);
+      description[i] =
+        description[i][0].toUpperCase() + description[i].substr(1);
     }
 
     let newDescription = description.join(" ");
 
     return newDescription;
-  }
+  };
 
   // Change temperature from Kelvin to Celsius / Fahrenheit
   // Convert to Celsius = K-273.15
@@ -57,11 +58,11 @@ export default class weatherObject {
   // Event - Toggle between both
 
   // Wind speed defined as mph or kph?
-static convertMPH = (weatherObject) => {
-    let mph = Math.round(2.24 * (weatherObject.wind));
+  static convertMPH = (weatherObject) => {
+    let mph = Math.round(2.24 * weatherObject.wind);
 
     return mph;
-}
+  };
 
   static appendWeatherInfo = (weatherObject) => {
     const weatherCard = document.createElement("div");
@@ -84,6 +85,6 @@ static convertMPH = (weatherObject) => {
 
     // Change background image based on temperature ranges (<=32, snowy, 33=<, sunny)
 
-    WEATHER_CARD_CONTAIN_DIV.appendChild(weatherCard);
+    WEATHER_CARD_CONTAIN_DIV.prepend(weatherCard);
   };
 }

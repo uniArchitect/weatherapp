@@ -33,7 +33,7 @@ LOCATION_UPDATE_BTN.addEventListener("click", () => {
   currentWeather(location);
 
   // Event - Clear input field after click
-  document.querySelector('.location-input').value = "";
+  document.querySelector(".location-input").value = "";
 });
 
 export { WEATHER_CARD_CONTAIN_DIV };
