@@ -29,10 +29,11 @@ LOCATION_UPDATE_BTN.addEventListener("click", () => {
   // Function - Modify location string to be consistent
   let location = LOCATION_INPUT.value;
 
-  // Event - Clear input field after click
-
   // Event - Append information to weather container
   currentWeather(location);
+
+  // Event - Clear input field after click
+  document.querySelector('.location-input').value = "";
 });
 
 export { WEATHER_CARD_CONTAIN_DIV };

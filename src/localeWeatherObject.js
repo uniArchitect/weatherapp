@@ -63,8 +63,8 @@ static convertMPH = (weatherObject) => {
     weatherCard.innerHTML = `
     <p>Location: ${weatherObject.location}</p>
     <p>Description: ${weatherObject.description}</p>
-    <p>Temperature: ${fahrenheit}</p>
-    <p>Feels Like: ${fahrenheitFeel}</p>
+    <p>Temperature: ${fahrenheit}°F</p>
+    <p>Feels Like: ${fahrenheitFeel}°F</p>
     <p>Humidity: ${weatherObject.humidity}%</p>
     <p>Wind Speed: ${windSpeedConverted} MPH</p>
     `;
