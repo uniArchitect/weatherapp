@@ -56,6 +56,42 @@ export default class weatherObject {
   };
 
   // Event - Toggle between both
+  static changeTemperature = () => {
+    let tempUnit = false;
+    const currentSystem = tempUnit ? fahrenheit : celsius;
+
+    // function to take in property of tenary operator outcome 'fahrenheit' or 'celsius' arguments
+    this.toggleTemperature(currentSystem);
+
+    this.switchUnit();
+  };
+
+  static toggleTemperature = (currentSystem) => {
+    // function to take in property of tenary operator outcome 'fahrenheit' or 'celsius' arguments
+    if (currentSystem == fahrenheit) {
+        weatherCard.innerHTML = `
+        <p>Location: ${weatherObject.location}</p>
+        <p>Description: ${description}</p>
+        <p><a class="temp-toggle" href="#">Temperature:</a> ${fahrenheit}°F</p>
+        <p>Feels Like: ${fahrenheitFeel}°F</p>
+        <p>Humidity: ${weatherObject.humidity}%</p>
+        <p>Wind Speed: ${windSpeedConverted} MPH</p>
+        `;  
+    } else if (currentSystem == celsius) {
+        weatherCard.innerHTML = `
+        <p>Location: ${weatherObject.location}</p>
+        <p>Description: ${description}</p>
+        <p><a class="temp-toggle" href="#">Temperature:</a> ${celsius}°F</p>
+        <p>Feels Like: ${celsiusFeel}°C</p>
+        <p>Humidity: ${weatherObject.humidity}%</p>
+        <p>Wind Speed: ${windSpeedConverted} MPH</p>
+        `;  
+    }
+  };
+
+  static switchUnit = () => {
+    let tempUnit = !tempUnit;
+  };
 
   // Wind speed defined as mph or kph?
   static convertMPH = (weatherObject) => {
@@ -70,6 +106,8 @@ export default class weatherObject {
 
     let fahrenheit = this.convertFahrenheit(weatherObject)[0];
     let fahrenheitFeel = this.convertFahrenheit(weatherObject)[1];
+    let celsius = this.convertCelsius(weatherObject)[0];
+    let celsiusFeel = this.convertCelsius(weatherObject)[1];
     let windSpeedConverted = this.convertMPH(weatherObject);
     let description = this.capEachWord(weatherObject);
 
@@ -77,7 +115,7 @@ export default class weatherObject {
     weatherCard.innerHTML = `
     <p>Location: ${weatherObject.location}</p>
     <p>Description: ${description}</p>
-    <p>Temperature: ${fahrenheit}°F</p>
+    <p><a class="temp-toggle" href="#">Temperature:</a> ${fahrenheit}°F</p>
     <p>Feels Like: ${fahrenheitFeel}°F</p>
     <p>Humidity: ${weatherObject.humidity}%</p>
     <p>Wind Speed: ${windSpeedConverted} MPH</p>
