@@ -40,8 +40,8 @@ LOCATION_UPDATE_BTN.addEventListener("click", () => {
 
 // Event - Toggle Fahrenheit / Celsius
 
-WEATHER_CARD_CONTAIN_DIV.addEventListener("click", (e) => {
-  weatherObject.changeTemperature(currentWeather(location));
-});
+// WEATHER_CARD_CONTAIN_DIV.addEventListener("click", () => {
+//   weatherObject.changeTemperature();
+// });
 
 export { WEATHER_CARD_CONTAIN_DIV };
