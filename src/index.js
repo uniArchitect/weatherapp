@@ -2,6 +2,7 @@
 /* eslint-disable no-undef */
 import "./styles.css";
 import currentWeather from "./weatherAPI";
+import weatherObject from "./localeWeatherObject";
 
 // GLOBAL VARIABLE
 const BODY = document.querySelector("body");
@@ -34,6 +35,13 @@ LOCATION_UPDATE_BTN.addEventListener("click", () => {
 
   // Event - Clear input field after click
   document.querySelector(".location-input").value = "";
+
+});
+
+// Event - Toggle Fahrenheit / Celsius
+
+WEATHER_CARD_CONTAIN_DIV.addEventListener("click", (e) => {
+  weatherObject.changeTemperature(currentWeather(location));
 });
 
 export { WEATHER_CARD_CONTAIN_DIV };

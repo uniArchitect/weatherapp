@@ -34,6 +34,8 @@ export default async function currentWeather(location) {
     );
 
     weatherObject.appendWeatherInfo(cityWeather);
+
+    return cityWeather;
   } catch (err) {
     console.log(err);
   }
