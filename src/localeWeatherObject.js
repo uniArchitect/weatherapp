@@ -1,13 +1,15 @@
-import { WEATHER_CARD_CONTAIN_DIV } from "./index";
+/* Importing the WEATHER_CARD_CONTAIN_DIV from the index.js file. */
+// eslint-disable-next-line import/no-cycle
+import { WEATHER_CARD_CONTAIN_DIV } from './index';
 
-export default class weatherObject {
+export default class WeatherObject {
   constructor(
     weatherLocation,
     weatherDescription,
     weatherTemperature,
     weatherFeel,
     weatherHumidity,
-    weatherWindSpeed
+    weatherWindSpeed,
   ) {
     this.location = weatherLocation;
     this.description = weatherDescription;
@@ -20,15 +22,15 @@ export default class weatherObject {
 
   // Description string is adjusted to be capitalized
   static capEachWord = (weatherObject) => {
-    const description = weatherObject.description.split(" ");
+    const description = weatherObject.description.split(' ');
     // console.log(description);
 
+    // eslint-disable-next-line no-plusplus
     for (let i = 0; i < description.length; i++) {
-      description[i] =
-        description[i][0].toUpperCase() + description[i].substr(1);
+      description[i] = description[i][0].toUpperCase() + description[i].substr(1);
     }
 
-    let newDescription = description.join(" ");
+    const newDescription = description.join(' ');
 
     return newDescription;
   };
@@ -38,28 +40,31 @@ export default class weatherObject {
   // Convert to Fahrenheit = 1.8(K-273)+32
 
   static convertCelsius = (weatherObject) => {
-    let cTemperature = Math.round(weatherObject.temperature - 273.15) + '°C';
-    let cFeel = Math.round(weatherObject.feel - 273.15) + '°C';
+    const cTemperature = `${Math.round(weatherObject.temperature - 273.15)}°C`;
+    const cFeel = `${Math.round(weatherObject.feel - 273.15)}°C`;
 
-    let cArray = [cTemperature, cFeel];
+    const cArray = [cTemperature, cFeel];
 
     return cArray;
   };
 
   static convertFahrenheit = (weatherObject) => {
-    let fTemperature = Math.round(1.8 * (weatherObject.temperature - 273) + 32) + '°F';
-    let fFeel = Math.round(1.8 * (weatherObject.feel - 273) + 32) + '°F';
+    const fTemperature = `${Math.round(
+      1.8 * (weatherObject.temperature - 273) + 32,
+    )}°F`;
+    const fFeel = `${Math.round(1.8 * (weatherObject.feel - 273) + 32)}°F`;
 
-    let fArray = [fTemperature, fFeel];
+    const fArray = [fTemperature, fFeel];
 
     return fArray;
   };
 
   // Event - Toggle between both
   static changeTemperature = (cityWeather) => {
-    let tempUnit = false;
+    const tempUnit = false;
     const currentSystem = tempUnit ? 'F' : 'C';
     console.log(currentSystem);
+
     // function to take in property of tenary operator outcome 'fahrenheit' or 'celsius' arguments
     this.toggleTemperature(currentSystem);
 
@@ -67,31 +72,30 @@ export default class weatherObject {
   };
 
   // Change weather card function
-  static toggleTemperature = (currentSystem) => {
-
-  };
+  static toggleTemperature = (currentSystem) => {};
 
   static switchUnit = () => {
-    let tempUnit = !tempUnit;
+    // eslint-disable-next-line no-use-before-define
+    const tempUnit = !tempUnit;
   };
 
   // Wind speed defined as mph or kph?
   static convertMPH = (weatherObject) => {
-    let mph = Math.round(2.24 * weatherObject.wind);
+    const mph = Math.round(2.24 * weatherObject.wind);
 
     return mph;
   };
 
   static appendWeatherInfo = (cityWeather) => {
-    const weatherCard = document.createElement("div");
-    weatherCard.classList.add("weather-card");
+    const weatherCard = document.createElement('div');
+    weatherCard.classList.add('weather-card');
 
-    let fahrenheit = this.convertFahrenheit(cityWeather)[0];
-    let fahrenheitFeel = this.convertFahrenheit(cityWeather)[1];
-    let celsius = this.convertCelsius(cityWeather)[0];
-    let celsiusFeel = this.convertCelsius(cityWeather)[1];
-    let windSpeedConverted = this.convertMPH(cityWeather);
-    let description = this.capEachWord(cityWeather);
+    const fahrenheit = this.convertFahrenheit(cityWeather)[0];
+    const fahrenheitFeel = this.convertFahrenheit(cityWeather)[1];
+    const celsius = this.convertCelsius(cityWeather)[0];
+    const celsiusFeel = this.convertCelsius(cityWeather)[1];
+    const windSpeedConverted = this.convertMPH(cityWeather);
+    const description = this.capEachWord(cityWeather);
 
     // Define information in weather card
     weatherCard.innerHTML = `
