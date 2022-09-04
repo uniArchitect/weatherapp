@@ -43,9 +43,10 @@ LOCATION_UPDATE_BTN.addEventListener('click', () => {
 });
 
 // Event - Toggle Fahrenheit / Celsius
-// WEATHER_CARD_CONTAIN_DIV.addEventListener('click', () => {
-//   console.log(cityWeather);
-// });
+WEATHER_CARD_CONTAIN_DIV.addEventListener('click', () => {
+  document.querySelector('.temperature-New-York').innerText = 'changed temperature';
+  document.querySelector('.feels-like-New-York').innerText = 'changed real feel';
+});
 
 // eslint-disable-next-line import/prefer-default-export
 export { WEATHER_CARD_CONTAIN_DIV };

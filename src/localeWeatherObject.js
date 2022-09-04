@@ -91,8 +91,8 @@ export default class WeatherObject {
     weatherCard.innerHTML = `
     <p>Location: ${cityWeather.location}</p>
     <p>Description: ${description}</p>
-    <p><a class="temp-toggle" href="#">Temperature:</a> ${temperature}</p>
-    <p>Feels Like: ${feelsLike}</p>
+    <div class='temperature-${weatherLocation}' id='temperature'><a class="temp-toggle" href="#">Temperature:</a> ${temperature}</div>
+    <div class='feels-like-${weatherLocation}' id='feels-like'>Feels Like: ${feelsLike}</div>
     <p>Humidity: ${cityWeather.humidity}%</p>
     <p>Wind Speed: ${windSpeedConverted} MPH</p>
     `;
@@ -116,43 +116,16 @@ export default class WeatherObject {
 
   // Change weather card function
   static toggleTemperature = (currentSystem, cityWeather) => {
-    const weatherCard = document.querySelector(`weather-card-${cityWeather.location}`);
+    const weatherCard = document.querySelector(
+      `weather-card-${cityWeather.location}`,
+    );
 
     const fahrenheit = this.convertFahrenheit(cityWeather)[0];
     const fahrenheitFeel = this.convertFahrenheit(cityWeather)[1];
     const celsius = this.convertCelsius(cityWeather)[0];
     const celsiusFeel = this.convertCelsius(cityWeather)[1];
 
-    if (currentSystem === 'F') {
-      // eslint-disable-next-line prefer-const
-      let temperature = fahrenheit;
-      // eslint-disable-next-line prefer-const
-      let feelsLike = fahrenheitFeel;
-
-      // Define information in weather card
-      weatherCard.innerHTML = `
-    <p>Location: ${cityWeather.location}</p>
-    <p>Description: ${description}</p>
-    <p><a class="temp-toggle" href="#">Temperature:</a> ${temperature}</p>
-    <p>Feels Like: ${feelsLike}</p>
-    <p>Humidity: ${cityWeather.humidity}%</p>
-    <p>Wind Speed: ${windSpeedConverted} MPH</p>
-    `;
-    } else if (currentSystem === 'C') {
-      // eslint-disable-next-line prefer-const
-      let temperature = celsius;
-      // eslint-disable-next-line prefer-const
-      let feelsLike = celsiusFeel;
-
-      // Define information in weather card
-      weatherCard.innerHTML = `
-    <p>Location: ${cityWeather.location}</p>
-    <p>Description: ${description}</p>
-    <p><a class="temp-toggle" href="#">Temperature:</a> ${temperature}</p>
-    <p>Feels Like: ${feelsLike}</p>
-    <p>Humidity: ${cityWeather.humidity}%</p>
-    <p>Wind Speed: ${windSpeedConverted} MPH</p>
-    `;
-    }
+    const windSpeedConverted = this.convertMPH(cityWeather);
+    const description = this.capEachWord(cityWeather);
   };
 }
