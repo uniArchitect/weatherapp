@@ -41,6 +41,10 @@ html {
   border-radius: 1em;
 }
 
+.location {
+    margin-bottom: 1em;
+}
+
 #temperature {
     margin-top: 1em;
     margin-bottom: 1em;

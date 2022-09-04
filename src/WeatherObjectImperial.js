@@ -1,5 +1,4 @@
-import { WEATHER_CARD_CONTAIN_DIV } from './index';
-
+/* It takes in the weather data from the API and returns it in a format that is easier to use */
 export default class WeatherObjectImperial {
   constructor(
     weatherLocation,
@@ -14,6 +13,6 @@ export default class WeatherObjectImperial {
     this.temperature = `${weatherTemperature} °F`;
     this.feel = `${weatherFeel} °F`;
     this.humidity = weatherHumidity;
-    this.wind = weatherWindSpeed;
+    this.wind = `${weatherWindSpeed} MPH`;
   }
 }

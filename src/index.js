@@ -3,8 +3,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 import './styles.css';
-import currentWeather, { currentWeatherCelsius } from './weatherAPI';
-import WeatherObject from './WeatherObjectMetric';
+import { currentWeatherImperial, currentWeatherMetric } from './weatherAPI';
 
 /* This is creating the elements that will be used in the app. */
 const BODY = document.querySelector('body');
@@ -33,10 +32,10 @@ LOCATION_UPDATE_BTN.addEventListener('click', () => {
   const location = LOCATION_INPUT.value;
 
   // Event - Append information to weather container
-  const cityWeather = currentWeather(location);
+  const cityWeather = currentWeatherImperial(location);
   console.log(cityWeather);
 
-  currentWeatherCelsius(location);
+  currentWeatherMetric(location);
 
   // Event - Clear input field after click
   document.querySelector('.location-input').value = '';
@@ -47,7 +46,7 @@ LOCATION_UPDATE_BTN.addEventListener('click', () => {
 // Event - Toggle Fahrenheit / Celsius
 WEATHER_CARD_CONTAIN_DIV.addEventListener('click', (e) => {
   console.log(e.target);
-  
+
   // document.querySelector('.temperature-New-York').innerText = 'changed temperature';
   // document.querySelector('.feels-like-New-York').innerText = 'changed real feel';
 });
