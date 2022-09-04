@@ -59,21 +59,6 @@ export default class WeatherObject {
     return fArray;
   };
 
-  // Event - Toggle between both
-  static changeTemperature = (cityWeather) => {
-    const tempUnit = false;
-    const currentSystem = tempUnit ? 'F' : 'C';
-    console.log(currentSystem);
-
-    // function to take in property of tenary operator outcome 'fahrenheit' or 'celsius' arguments
-    this.toggleTemperature(currentSystem);
-
-    this.switchUnit();
-  };
-
-  // Change weather card function
-  static toggleTemperature = (currentSystem) => {};
-
   static switchUnit = () => {
     // eslint-disable-next-line no-use-before-define
     const tempUnit = !tempUnit;
@@ -88,21 +73,26 @@ export default class WeatherObject {
 
   static appendWeatherInfo = (cityWeather) => {
     const weatherCard = document.createElement('div');
-    weatherCard.classList.add('weather-card');
+    const weatherLocation = `${cityWeather.location}`.replaceAll(' ', '-');
+    weatherCard.classList.add(`weather-card-${weatherLocation}`);
+    weatherCard.setAttribute('id', 'weather-card');
 
     const fahrenheit = this.convertFahrenheit(cityWeather)[0];
     const fahrenheitFeel = this.convertFahrenheit(cityWeather)[1];
-    const celsius = this.convertCelsius(cityWeather)[0];
-    const celsiusFeel = this.convertCelsius(cityWeather)[1];
     const windSpeedConverted = this.convertMPH(cityWeather);
     const description = this.capEachWord(cityWeather);
+
+    // eslint-disable-next-line prefer-const
+    let temperature = fahrenheit;
+    // eslint-disable-next-line prefer-const
+    let feelsLike = fahrenheitFeel;
 
     // Define information in weather card
     weatherCard.innerHTML = `
     <p>Location: ${cityWeather.location}</p>
     <p>Description: ${description}</p>
-    <p><a class="temp-toggle" href="#">Temperature:</a> ${fahrenheit}</p>
-    <p>Feels Like: ${fahrenheitFeel}</p>
+    <p><a class="temp-toggle" href="#">Temperature:</a> ${temperature}</p>
+    <p>Feels Like: ${feelsLike}</p>
     <p>Humidity: ${cityWeather.humidity}%</p>
     <p>Wind Speed: ${windSpeedConverted} MPH</p>
     `;
@@ -110,5 +100,59 @@ export default class WeatherObject {
     // Change background image based on temperature ranges (<=32, snowy, 33=<, sunny)
 
     WEATHER_CARD_CONTAIN_DIV.prepend(weatherCard);
+  };
+
+  // Event - Toggle between both
+  static changeTemperature = (cityWeather) => {
+    const tempUnit = false;
+    const currentSystem = tempUnit ? 'F' : 'C';
+    console.log(currentSystem);
+
+    // function to take in property of tenary operator outcome 'fahrenheit' or 'celsius' arguments
+    this.toggleTemperature(currentSystem, cityWeather);
+
+    this.switchUnit();
+  };
+
+  // Change weather card function
+  static toggleTemperature = (currentSystem, cityWeather) => {
+    const weatherCard = document.querySelector(`weather-card-${cityWeather.location}`);
+
+    const fahrenheit = this.convertFahrenheit(cityWeather)[0];
+    const fahrenheitFeel = this.convertFahrenheit(cityWeather)[1];
+    const celsius = this.convertCelsius(cityWeather)[0];
+    const celsiusFeel = this.convertCelsius(cityWeather)[1];
+
+    if (currentSystem === 'F') {
+      // eslint-disable-next-line prefer-const
+      let temperature = fahrenheit;
+      // eslint-disable-next-line prefer-const
+      let feelsLike = fahrenheitFeel;
+
+      // Define information in weather card
+      weatherCard.innerHTML = `
+    <p>Location: ${cityWeather.location}</p>
+    <p>Description: ${description}</p>
+    <p><a class="temp-toggle" href="#">Temperature:</a> ${temperature}</p>
+    <p>Feels Like: ${feelsLike}</p>
+    <p>Humidity: ${cityWeather.humidity}%</p>
+    <p>Wind Speed: ${windSpeedConverted} MPH</p>
+    `;
+    } else if (currentSystem === 'C') {
+      // eslint-disable-next-line prefer-const
+      let temperature = celsius;
+      // eslint-disable-next-line prefer-const
+      let feelsLike = celsiusFeel;
+
+      // Define information in weather card
+      weatherCard.innerHTML = `
+    <p>Location: ${cityWeather.location}</p>
+    <p>Description: ${description}</p>
+    <p><a class="temp-toggle" href="#">Temperature:</a> ${temperature}</p>
+    <p>Feels Like: ${feelsLike}</p>
+    <p>Humidity: ${cityWeather.humidity}%</p>
+    <p>Wind Speed: ${windSpeedConverted} MPH</p>
+    `;
+    }
   };
 }

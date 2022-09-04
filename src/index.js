@@ -33,16 +33,19 @@ LOCATION_UPDATE_BTN.addEventListener('click', () => {
   const location = LOCATION_INPUT.value;
 
   // Event - Append information to weather container
-  currentWeather(location);
+  const cityWeather = currentWeather(location);
+  console.log(cityWeather);
 
   // Event - Clear input field after click
   document.querySelector('.location-input').value = '';
+
+  return cityWeather;
 });
 
 // Event - Toggle Fahrenheit / Celsius
-
-// WEATHER_CARD_CONTAIN_DIV.addEventListener("click", () => {
-//   weatherObject.changeTemperature();
+// WEATHER_CARD_CONTAIN_DIV.addEventListener('click', () => {
+//   console.log(cityWeather);
 // });
 
+// eslint-disable-next-line import/prefer-default-export
 export { WEATHER_CARD_CONTAIN_DIV };

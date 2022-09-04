@@ -1,6 +1,7 @@
 /* eslint-disable import/no-cycle */
 import WeatherObject from './localeWeatherObject';
 
+// eslint-disable-next-line consistent-return
 export default async function currentWeather(location) {
   try {
     const geocodeResponse = await fetch(
@@ -38,6 +39,7 @@ export default async function currentWeather(location) {
 
     return cityWeather;
   } catch (err) {
+    // eslint-disable-next-line no-console
     console.log(err);
   }
 }
