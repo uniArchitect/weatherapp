@@ -19,31 +19,64 @@ async function currentWeatherImperial(location) {
       { mode: 'cors' },
     );
     const weatherAPI = await weatherResponse.json();
-    const weatherLocation = weatherAPI.name;
-    const weatherDescription = weatherAPI.weather[0].description;
-    const weatherTemperatureFahrenheit = weatherAPI.main.temp;
-    const weatherFeelFahrenheit = weatherAPI.main.feels_like;
-    const weatherHumidity = weatherAPI.main.humidity;
-    const weatherWindSpeedMPH = weatherAPI.wind.speed;
-    // weatherAPI.clouds
-    // console.log(weatherAPI);
+    console.log(weatherAPI);
+    return weatherAPI;
+    // const weatherLocation = weatherAPI.name;
+    // const weatherDescription = weatherAPI.weather[0].description;
+    // const weatherTemperatureFahrenheit = weatherAPI.main.temp;
+    // const weatherFeelFahrenheit = weatherAPI.main.feels_like;
+    // const weatherHumidity = weatherAPI.main.humidity;
+    // const weatherWindSpeedMPH = weatherAPI.wind.speed;
+    // // weatherAPI.clouds
+    // // console.log(weatherAPI);
 
-    const cityWeather = new WeatherObjectImperial(
-      weatherLocation,
-      weatherDescription,
-      weatherTemperatureFahrenheit,
-      weatherFeelFahrenheit,
-      weatherHumidity,
-      weatherWindSpeedMPH,
-    );
+    // const cityWeather = new WeatherObjectImperial(
+    //   weatherLocation,
+    //   weatherDescription,
+    //   weatherTemperatureFahrenheit,
+    //   weatherFeelFahrenheit,
+    //   weatherHumidity,
+    //   weatherWindSpeedMPH,
+    // );
 
-    WeatherUI.appendWeatherInfo(cityWeather);
+    // WeatherUI.appendWeatherInfo(cityWeather);
 
-    return cityWeather;
+    // return cityWeather;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
   }
+}
+
+async function captureAPI (currentWeather) {
+  const returnAPI = await currentWeatherImperial(location);
+  console.log(returnAPI);
+  return returnAPI;
+}
+
+function weatherImperialObject (weatherAPI) {
+  console.log(weatherAPI);
+  const weatherLocation = weatherAPI.name;
+  const weatherDescription = weatherAPI.weather[0].description;
+  const weatherTemperatureFahrenheit = weatherAPI.main.temp;
+  const weatherFeelFahrenheit = weatherAPI.main.feels_like;
+  const weatherHumidity = weatherAPI.main.humidity;
+  const weatherWindSpeedMPH = weatherAPI.wind.speed;
+  // weatherAPI.clouds
+  // console.log(weatherAPI);
+
+  const cityWeather = new WeatherObjectImperial(
+    weatherLocation,
+    weatherDescription,
+    weatherTemperatureFahrenheit,
+    weatherFeelFahrenheit,
+    weatherHumidity,
+    weatherWindSpeedMPH,
+  );
+
+  WeatherUI.appendWeatherInfo(cityWeather);
+
+  return cityWeather;
 }
 
 // eslint-disable-next-line consistent-return
@@ -89,4 +122,4 @@ async function currentWeatherMetric(location) {
   }
 }
 
-export { currentWeatherImperial, currentWeatherMetric };
+export { currentWeatherImperial, currentWeatherMetric, weatherImperialObject, captureAPI };
