@@ -4,9 +4,9 @@ body,
 html {
   height: 95%;
   /* background-color: #f8fafc; */
-  /* background-color: #222629; */
+  background-color: #222629;
   font-family: "Montserrat", sans-serif;
-  /* color: #f8fafc; */
+  color: #f8fafc;
 }
 
 .main-container {
@@ -37,7 +37,7 @@ html {
   flex-direction: column;
   margin: 1em;
   padding: 1em;
-  border: 1px solid black;
+  border: 1px solid #f8fafc;;
   border-radius: 1em;
 }
 

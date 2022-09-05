@@ -4,6 +4,7 @@
 /* eslint-disable no-undef */
 import './styles.css';
 import { currentWeatherImperial, currentWeatherMetric } from './weatherAPI';
+import WeatherUI from './WeatherUI';
 
 /* This is creating the elements that will be used in the app. */
 const BODY = document.querySelector('body');
@@ -32,23 +33,22 @@ LOCATION_UPDATE_BTN.addEventListener('click', () => {
   const location = LOCATION_INPUT.value;
 
   // Event - Append information to weather container
-  const cityWeather = currentWeatherImperial(location);
-  console.log(cityWeather);
+  const cityWeatherImperial = currentWeatherImperial(location);
+  console.log(cityWeatherImperial);
 
-  currentWeatherMetric(location);
+  // currentWeatherMetric(location);
 
   // Event - Clear input field after click
   document.querySelector('.location-input').value = '';
 
-  return cityWeather;
+  return cityWeatherImperial;
 });
 
 // Event - Toggle Fahrenheit / Celsius
 WEATHER_CARD_CONTAIN_DIV.addEventListener('click', (e) => {
   console.log(e.target);
 
-  // document.querySelector('.temperature-New-York').innerText = 'changed temperature';
-  // document.querySelector('.feels-like-New-York').innerText = 'changed real feel';
+  WeatherUI.changeWeatherUnit(e.target);
 });
 
 // eslint-disable-next-line import/prefer-default-export

@@ -1,5 +1,6 @@
 // eslint-disable-next-line import/no-cycle
 import { WEATHER_CARD_CONTAIN_DIV } from './index';
+import { currentWeatherImperial, currentWeatherMetric } from './weatherAPI';
 
 export default class WeatherUI {
   // Description string is adjusted to be capitalized
@@ -17,13 +18,6 @@ export default class WeatherUI {
     return newDescription;
   };
 
-  // Wind speed defined as mph or kph?
-  static convertMPH = (cityWeather) => {
-    const mph = Math.round(2.24 * cityWeather.wind);
-
-    return mph;
-  };
-
   static appendWeatherInfo = (cityWeather) => {
     const weatherCard = document.createElement('div');
     const weatherLocation = `${cityWeather.location}`.replaceAll(' ', '-');
@@ -37,7 +31,7 @@ export default class WeatherUI {
     weatherCard.innerHTML = `
     <div class='location'>Location: <span class='location-name'>${cityWeather.location}</span></div>
     <p>Description: ${description}</p>
-    <div class='temperature-${weatherLocation}' id='temperature'><a class="temp-toggle" href="#">Temperature:</a> <span>${cityWeather.temperature}</span></div>
+    <div class='temperature-${weatherLocation}' id='temperature'><a class="${cityWeather.location}" id="temp-toggle" href="#">Temperature:</a> <span>${cityWeather.temperature}</span></div>
     <div class='feels-like-${weatherLocation}' id='feels-like'>Feels Like: <span>${cityWeather.feel}</span></div>
     <p>Humidity: ${cityWeather.humidity}%</p>
     <p>Wind Speed: ${cityWeather.wind}</p>
@@ -47,4 +41,14 @@ export default class WeatherUI {
 
     WEATHER_CARD_CONTAIN_DIV.prepend(weatherCard);
   };
+
+  static changeWeatherUnit = (target) => {
+    // const tempUnit = false;
+    console.log(target);
+    const weatherCard = `${target.classList}`;
+    const locationName = weatherCard.replaceAll('-', ' ');
+    // Gives us the city name for API (e.g. New York)
+
+    return currentWeatherMetric(locationName);
+  }
 }
