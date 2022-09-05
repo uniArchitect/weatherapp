@@ -43,12 +43,20 @@ export default class WeatherUI {
   };
 
   static changeWeatherUnit = (target) => {
-    // const tempUnit = false;
-    console.log(target);
+    // const tempUnit = 'fahrenheit';
+
+    console.log(target.nextElementSibling);
+    console.log(target.nextElementSibling.innerText);
     const weatherCard = `${target.classList}`;
     const locationName = weatherCard.replaceAll('-', ' ');
     // Gives us the city name for API (e.g. New York)
 
-    return currentWeatherMetric(locationName);
+    // If nextElementSibling contains F or C then execute Metric / Imperial weather functions
+    if (target.nextElementSibling.innerText.includes('°F') == true) {
+      console.log('This is Imperial')
+      return currentWeatherMetric(locationName);
+    } else {
+      return currentWeatherImperial(locationName);
+    }
   }
 }
