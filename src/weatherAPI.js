@@ -49,7 +49,7 @@ async function currentWeatherImperial(location) {
 }
 
 async function captureAPI (currentWeather) {
-  const returnAPI = await currentWeatherImperial(location);
+  const returnAPI = await currentWeather;
   console.log(returnAPI);
   return returnAPI;
 }
