@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 import './styles.css';
-import { currentWeatherImperial, currentWeatherMetric } from './weatherAPI';
+import { currentWeather } from './weatherAPI';
 import WeatherUI from './WeatherUI';
 
 /* This is creating the elements that will be used in the app. */
@@ -34,9 +34,11 @@ USER_INPUT_CONTAIN_DIV.append(LOCATION_INPUT, LOCATION_UPDATE_BTN, UNIT_TOGGLE_B
 LOCATION_UPDATE_BTN.addEventListener('click', () => {
   // Function - Modify location string to be consistent
   const location = LOCATION_INPUT.value;
+  const currentUnit = UNIT_TOGGLE_BUTTON.innerHTML;
+  console.log(currentUnit);
 
   // Define - City Weather API, return within another async function
-  currentWeatherImperial(location);
+  currentWeather(location, currentUnit);
 
   // Event - Clear input field after click
   document.querySelector('.location-input').value = '';

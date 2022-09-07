@@ -1,5 +1,4 @@
 /* eslint-disable import/no-cycle */
-import WeatherObjectMetric from './WeatherObjectMetric';
 import WeatherObjectImperial from './WeatherObjectImperial';
 import WeatherUI from './WeatherUI';
 
@@ -22,16 +21,28 @@ async function fetchGeocode(location) {
   }
 }
 
-async function fetchWeather(latitude, longitude) {
+async function fetchWeather(latitude, longitude, currentUnit) {
   try {
-    const weatherResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=1228246814ef93d1b972cc316a42abeb`,
-      { mode: 'cors' },
-    );
+    if (currentUnit == '°F') {
+      const weatherResponse = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=1228246814ef93d1b972cc316a42abeb`,
+        { mode: 'cors' },
+      );
+  
+      const weatherImperial = await weatherResponse.json();
 
-    const weatherImperial = await weatherResponse.json();
+      return weatherImperial;
+    } else if (currentUnit == '°C') {
+        const weatherResponse = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=1228246814ef93d1b972cc316a42abeb`,
+          { mode: 'cors' },
+        );
+    
+        const weatherMetric = await weatherResponse.json();
 
-    return weatherImperial;
+        return weatherMetric;
+    }
+
   } catch (err) {
     console.log(err);
   }
@@ -84,14 +95,15 @@ function defineWeatherInfo(weatherAPI) {
 }
 
 // eslint-disable-next-line consistent-return
-async function currentWeatherImperial(location) {
+async function currentWeather(location, currentUnit) {
   try {
 
     // Defining variable with await still calls the function
     const geocode = await fetchGeocode(location);
     // console.log(geocode);
 
-    const weatherAPI = await fetchWeather(geocode.latitude, geocode.longitude);
+    // Return Imperial or Metric weatherAPI
+    const weatherAPI = await fetchWeather(geocode.latitude, geocode.longitude, currentUnit);
     console.log(weatherAPI);
     
     // define weatherAPI;
@@ -107,29 +119,29 @@ async function currentWeatherImperial(location) {
 }
 
 // eslint-disable-next-line consistent-return
-async function currentWeatherMetric(location) {
-  try {
+// async function currentWeatherMetric(location) {
+//   try {
 
-    // Defining variable with await still calls the function
-    const geocode = await fetchGeocode(location);
-    // console.log(geocode);
+//     // Defining variable with await still calls the function
+//     const geocode = await fetchGeocode(location);
+//     // console.log(geocode);
 
-    const weatherResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${geocode.latitude}&lon=${geocode.longitude}&units=metric&appid=1228246814ef93d1b972cc316a42abeb`,
-      { mode: 'cors' },
-    );
-    const weatherAPI = await weatherResponse.json();
+//     const weatherResponse = await fetch(
+//       `https://api.openweathermap.org/data/2.5/weather?lat=${geocode.latitude}&lon=${geocode.longitude}&units=metric&appid=1228246814ef93d1b972cc316a42abeb`,
+//       { mode: 'cors' },
+//     );
+//     const weatherAPI = await weatherResponse.json();
     
-    // define weatherAPI;
-    const cityWeather = defineWeatherInfo(weatherAPI);
+//     // define weatherAPI;
+//     const cityWeather = defineWeatherInfo(weatherAPI);
 
-    WeatherUI.appendWeatherInfo(cityWeather);
+//     WeatherUI.appendWeatherInfo(cityWeather);
 
-    return cityWeather;
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
-  }
-}
+//     return cityWeather;
+//   } catch (err) {
+//     // eslint-disable-next-line no-console
+//     console.log(err);
+//   }
+// }
 
-export { currentWeatherImperial, currentWeatherMetric };
+export { currentWeather };

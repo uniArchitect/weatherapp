@@ -1,6 +1,6 @@
 // eslint-disable-next-line import/no-cycle
 import { WEATHER_CARD_CONTAIN_DIV } from './index';
-import { currentWeatherImperial, currentWeatherMetric } from './weatherAPI';
+import { currentWeather } from './weatherAPI';
 
 export default class WeatherUI {
   // Description string is adjusted to be capitalized
@@ -54,10 +54,10 @@ export default class WeatherUI {
     // If nextElementSibling includes F or C then execute Metric / Imperial weather functions
     if (target.nextElementSibling.innerText.includes('°F') == true) {
       // Function - Replace Imperial units with Metric
-      return currentWeatherMetric(locationName);
+      return currentWeather(locationName, currentUnit);
     } else {
       // Function - Replace Metric units with Imperial
-      return currentWeatherImperial(locationName);
+      return currentWeather(locationName, currentUnit);
     }
   }
 }
