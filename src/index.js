@@ -45,11 +45,11 @@ LOCATION_UPDATE_BTN.addEventListener('click', () => {
 });
 
 // Event - Toggle Fahrenheit / Celsius
-WEATHER_CARD_CONTAIN_DIV.addEventListener('click', (e) => {
-  console.log(e.target);
+// WEATHER_CARD_CONTAIN_DIV.addEventListener('click', (e) => {
+//   console.log(e.target);
 
-  WeatherUI.changeWeatherUnit(e.target);
-});
+//   WeatherUI.changeWeatherUnit(e.target);
+// });
 
 // Event: Change Has Read Status
 UNIT_TOGGLE_BUTTON.addEventListener('click', (e) => {

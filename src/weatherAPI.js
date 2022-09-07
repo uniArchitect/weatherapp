@@ -133,10 +133,23 @@ function createWeatherObjectMetric(weatherInfo) {
   return cityWeather;
 }
 
+function addWeatherCard(currentUnit, weatherInfo) {
+  if (currentUnit == '°F') {
+    const cityWeather = createWeatherObjectImperial(weatherInfo);
+
+    WeatherUI.appendWeatherInfo(cityWeather);
+    return cityWeather;
+  } else if (currentUnit == '°C') {
+    const cityWeather = createWeatherObjectMetric(weatherInfo);
+
+    WeatherUI.appendWeatherInfo(cityWeather);
+    return cityWeather;
+  }  
+}
+
 // eslint-disable-next-line consistent-return
 async function currentWeather(location, currentUnit) {
   try {
-
     // Defining variable with await still calls the function
     const geocode = await fetchGeocode(location);
     // console.log(geocode);
@@ -147,19 +160,11 @@ async function currentWeather(location, currentUnit) {
     
     // define weatherAPI;
     const weatherInfo = defineWeatherInfo(weatherAPI);
-    console.log(weatherInfo);
+    // console.log(weatherInfo);
 
-    if (currentUnit == '°F') {
-      const cityWeather = createWeatherObjectImperial(weatherInfo);
+    // Add weather card to web page
+    addWeatherCard(currentUnit, weatherInfo);
 
-      WeatherUI.appendWeatherInfo(cityWeather);
-      return cityWeather;
-    } else if (currentUnit == '°C') {
-      const cityWeather = createWeatherObjectMetric(weatherInfo);
-
-      WeatherUI.appendWeatherInfo(cityWeather);
-      return cityWeather;
-    }
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
