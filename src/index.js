@@ -3,7 +3,7 @@
 /* eslint-disable no-console */
 /* eslint-disable no-undef */
 import './styles.css';
-import { currentWeatherImperial, currentWeatherMetric, weatherImperialObject, captureAPI } from './weatherAPI';
+import { currentWeatherImperial, currentWeatherMetric, currentWeatherBothUnits } from './weatherAPI';
 import WeatherUI from './WeatherUI';
 
 /* This is creating the elements that will be used in the app. */
@@ -32,18 +32,11 @@ LOCATION_UPDATE_BTN.addEventListener('click', () => {
   // Function - Modify location string to be consistent
   const location = LOCATION_INPUT.value;
 
-  // Define - City Weather API
-  const cityWeatherImperialAPI = captureAPI(currentWeatherImperial(location));
-  console.log(cityWeatherImperialAPI);
-
-  // Event - Append information to weather container
-  weatherImperialObject(cityWeatherImperialAPI)
-  console.log(cityWeatherImperialAPI);
+  // Define - City Weather API, return within another async function
+  currentWeatherImperial(location);
 
   // Event - Clear input field after click
   document.querySelector('.location-input').value = '';
-
-  return cityWeatherImperialAPI;
 });
 
 // Event - Toggle Fahrenheit / Celsius

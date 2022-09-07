@@ -19,6 +19,7 @@ export default class WeatherUI {
   };
 
   static appendWeatherInfo = (cityWeather) => {
+    // Set weather div element and class and id
     const weatherCard = document.createElement('div');
     const weatherLocation = `${cityWeather.location}`.replaceAll(' ', '-');
     weatherCard.classList.add(`weather-card-${weatherLocation}`);
@@ -52,8 +53,10 @@ export default class WeatherUI {
 
     // If nextElementSibling includes F or C then execute Metric / Imperial weather functions
     if (target.nextElementSibling.innerText.includes('°F') == true) {
+      // Function - Replace Imperial units with Metric
       return currentWeatherMetric(locationName);
     } else {
+      // Function - Replace Metric units with Imperial
       return currentWeatherImperial(locationName);
     }
   }
