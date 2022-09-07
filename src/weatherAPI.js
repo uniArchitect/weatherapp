@@ -22,21 +22,31 @@ async function fetchGeocode(location) {
   }
 }
 
+async function fetchWeather(latitude, longitude) {
+  try {
+    const weatherResponse = await fetch(
+      `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=1228246814ef93d1b972cc316a42abeb`,
+      { mode: 'cors' },
+    );
+
+    const weatherImperial = await weatherResponse.json();
+
+    return weatherImperial;
+  } catch (err) {
+    console.log(err);
+  }
+}
+
 // eslint-disable-next-line consistent-return
 async function currentWeatherImperial(location) {
   try {
 
-    fetchGeocode(location);
-
+    // Defining variable with await still calls the function
     const geocode = await fetchGeocode(location);
-    console.log(geocode);
+    // console.log(geocode);
 
-    const weatherResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${geocode.latitude}&lon=${geocode.longitude}&units=imperial&appid=1228246814ef93d1b972cc316a42abeb`,
-      { mode: 'cors' },
-    );
-
-    const weatherAPI = await weatherResponse.json();
+    const weatherAPI = await fetchWeather(geocode.latitude, geocode.longitude);
+    console.log(weatherAPI);
     
     // return weatherAPI;
     const weatherLocation = weatherAPI.name;
