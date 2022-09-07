@@ -37,6 +37,52 @@ async function fetchWeather(latitude, longitude) {
   }
 }
 
+function defineWeatherInfo(weatherAPI) {
+  
+  const weatherLocation = weatherAPI.name;
+  const weatherDescription = weatherAPI.weather[0].description;
+  const weatherTemperature = weatherAPI.main.temp;
+  const weatherFeel = weatherAPI.main.feels_like;
+  const weatherHumidity = weatherAPI.main.humidity;
+  const weatherWindSpeed = weatherAPI.wind.speed;
+
+  const cityWeather = new WeatherObjectImperial(
+    weatherLocation,
+    weatherDescription,
+    weatherTemperature,
+    weatherFeel,
+    weatherHumidity,
+    weatherWindSpeed,
+  );
+
+  return cityWeather;
+
+  // If statement to choose Fahrenheit or Celsius
+  // if (variable == 'F') {
+  //   const cityWeather = new WeatherObjectImperial(
+  //     weatherLocation,
+  //     weatherDescription,
+  //     weatherTemperature,
+  //     weatherFeelFahrenheit,
+  //     weatherHumidity,
+  //     weatherWindSpeedMPH,
+  //   );
+
+  //   return cityWeather;
+  // } else if (unit == 'C') {
+  //   const cityWeather = new WeatherObjectMetric(
+  //     weatherLocation,
+  //     weatherDescription,
+  //     weatherTemperature,
+  //     weatherFeelFahrenheit,
+  //     weatherHumidity,
+  //     weatherWindSpeedMPH,
+  //   );
+
+  //   return cityWeather;    
+  // }
+}
+
 // eslint-disable-next-line consistent-return
 async function currentWeatherImperial(location) {
   try {
@@ -48,22 +94,8 @@ async function currentWeatherImperial(location) {
     const weatherAPI = await fetchWeather(geocode.latitude, geocode.longitude);
     console.log(weatherAPI);
     
-    // return weatherAPI;
-    const weatherLocation = weatherAPI.name;
-    const weatherDescription = weatherAPI.weather[0].description;
-    const weatherTemperatureFahrenheit = weatherAPI.main.temp;
-    const weatherFeelFahrenheit = weatherAPI.main.feels_like;
-    const weatherHumidity = weatherAPI.main.humidity;
-    const weatherWindSpeedMPH = weatherAPI.wind.speed;
-
-    const cityWeather = new WeatherObjectImperial(
-      weatherLocation,
-      weatherDescription,
-      weatherTemperatureFahrenheit,
-      weatherFeelFahrenheit,
-      weatherHumidity,
-      weatherWindSpeedMPH,
-    );
+    // define weatherAPI;
+    const cityWeather = defineWeatherInfo(weatherAPI);
 
     WeatherUI.appendWeatherInfo(cityWeather);
 
@@ -77,34 +109,19 @@ async function currentWeatherImperial(location) {
 // eslint-disable-next-line consistent-return
 async function currentWeatherMetric(location) {
   try {
-    const geocodeResponse = await fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${location},USA&limit=5&appid=1228246814ef93d1b972cc316a42abeb`,
-      { mode: 'cors' },
-    );
-    const geocode = await geocodeResponse.json();
-    const geocodeLat = geocode[0].lat;
-    const geocodeLon = geocode[0].lon;
+
+    // Defining variable with await still calls the function
+    const geocode = await fetchGeocode(location);
+    // console.log(geocode);
 
     const weatherResponse = await fetch(
-      `https://api.openweathermap.org/data/2.5/weather?lat=${geocodeLat}&lon=${geocodeLon}&units=metric&appid=1228246814ef93d1b972cc316a42abeb`,
+      `https://api.openweathermap.org/data/2.5/weather?lat=${geocode.latitude}&lon=${geocode.longitude}&units=metric&appid=1228246814ef93d1b972cc316a42abeb`,
       { mode: 'cors' },
     );
     const weatherAPI = await weatherResponse.json();
-    const weatherLocation = weatherAPI.name;
-    const weatherDescription = weatherAPI.weather[0].description;
-    const weatherTemperatureCelsius = weatherAPI.main.temp;
-    const weatherFeelCelsius = weatherAPI.main.feels_like;
-    const weatherHumidity = weatherAPI.main.humidity;
-    const weatherWindSpeedKPH = weatherAPI.wind.speed;
-
-    const cityWeather = new WeatherObjectMetric(
-      weatherLocation,
-      weatherDescription,
-      weatherTemperatureCelsius,
-      weatherFeelCelsius,
-      weatherHumidity,
-      weatherWindSpeedKPH,
-    );
+    
+    // define weatherAPI;
+    const cityWeather = defineWeatherInfo(weatherAPI);
 
     WeatherUI.appendWeatherInfo(cityWeather);
 
