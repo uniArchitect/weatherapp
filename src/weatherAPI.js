@@ -1,5 +1,6 @@
 /* eslint-disable import/no-cycle */
 import WeatherObjectImperial from './WeatherObjectImperial';
+import WeatherObjectMetric from './WeatherObjectMetric';
 import WeatherUI from './WeatherUI';
 
 async function fetchGeocode(location) {
@@ -57,16 +58,14 @@ function defineWeatherInfo(weatherAPI) {
   const weatherHumidity = weatherAPI.main.humidity;
   const weatherWindSpeed = weatherAPI.wind.speed;
 
-  const cityWeather = new WeatherObjectImperial(
-    weatherLocation,
-    weatherDescription,
-    weatherTemperature,
-    weatherFeel,
-    weatherHumidity,
-    weatherWindSpeed,
-  );
-
-  return cityWeather;
+  return {
+    'location': weatherLocation,
+    'description': weatherDescription,
+    'temperature': weatherTemperature,
+    'feel': weatherFeel,
+    'humidity': weatherHumidity,
+    'windspeed': weatherWindSpeed
+  };
 
   // If statement to choose Fahrenheit or Celsius
   // if (variable == 'F') {
@@ -94,6 +93,46 @@ function defineWeatherInfo(weatherAPI) {
   // }
 }
 
+function createWeatherObjectImperial(weatherInfo) {
+  const weatherLocation = weatherInfo.location;
+  const weatherDescription = weatherInfo.description;
+  const weatherTemperature = weatherInfo.temperature;
+  const weatherFeel = weatherInfo.feel;
+  const weatherHumidity = weatherInfo.humidity;
+  const weatherWindSpeed = weatherInfo.windspeed;
+  
+  const cityWeather = new WeatherObjectImperial(
+    weatherLocation,
+    weatherDescription,
+    weatherTemperature,
+    weatherFeel,
+    weatherHumidity,
+    weatherWindSpeed,
+  );
+
+  return cityWeather;
+}
+
+function createWeatherObjectMetric(weatherInfo) {
+  const weatherLocation = weatherInfo.location;
+  const weatherDescription = weatherInfo.description;
+  const weatherTemperature = weatherInfo.temperature;
+  const weatherFeel = weatherInfo.feel;
+  const weatherHumidity = weatherInfo.humidity;
+  const weatherWindSpeed = weatherInfo.windspeed;
+  
+  const cityWeather = new WeatherObjectMetric(
+    weatherLocation,
+    weatherDescription,
+    weatherTemperature,
+    weatherFeel,
+    weatherHumidity,
+    weatherWindSpeed,
+  );
+
+  return cityWeather;
+}
+
 // eslint-disable-next-line consistent-return
 async function currentWeather(location, currentUnit) {
   try {
@@ -104,14 +143,23 @@ async function currentWeather(location, currentUnit) {
 
     // Return Imperial or Metric weatherAPI
     const weatherAPI = await fetchWeather(geocode.latitude, geocode.longitude, currentUnit);
-    console.log(weatherAPI);
+    // console.log(weatherAPI);
     
     // define weatherAPI;
-    const cityWeather = defineWeatherInfo(weatherAPI);
+    const weatherInfo = defineWeatherInfo(weatherAPI);
+    console.log(weatherInfo);
 
-    WeatherUI.appendWeatherInfo(cityWeather);
+    if (currentUnit == '°F') {
+      const cityWeather = createWeatherObjectImperial(weatherInfo);
 
-    return cityWeather;
+      WeatherUI.appendWeatherInfo(cityWeather);
+      return cityWeather;
+    } else if (currentUnit == '°C') {
+      const cityWeather = createWeatherObjectMetric(weatherInfo);
+
+      WeatherUI.appendWeatherInfo(cityWeather);
+      return cityWeather;
+    }
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
