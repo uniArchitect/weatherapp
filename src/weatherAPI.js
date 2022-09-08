@@ -53,10 +53,10 @@ function defineWeatherInfo(weatherAPI) {
   
   const weatherLocation = weatherAPI.name;
   const weatherDescription = weatherAPI.weather[0].description;
-  const weatherTemperature = weatherAPI.main.temp;
-  const weatherFeel = weatherAPI.main.feels_like;
+  const weatherTemperature = Math.round(weatherAPI.main.temp);
+  const weatherFeel = Math.round(weatherAPI.main.feels_like);
   const weatherHumidity = weatherAPI.main.humidity;
-  const weatherWindSpeed = weatherAPI.wind.speed;
+  const weatherWindSpeed = Math.round(weatherAPI.wind.speed);
 
   return {
     'location': weatherLocation,
@@ -170,31 +170,5 @@ async function currentWeather(location, currentUnit) {
     console.log(err);
   }
 }
-
-// eslint-disable-next-line consistent-return
-// async function currentWeatherMetric(location) {
-//   try {
-
-//     // Defining variable with await still calls the function
-//     const geocode = await fetchGeocode(location);
-//     // console.log(geocode);
-
-//     const weatherResponse = await fetch(
-//       `https://api.openweathermap.org/data/2.5/weather?lat=${geocode.latitude}&lon=${geocode.longitude}&units=metric&appid=1228246814ef93d1b972cc316a42abeb`,
-//       { mode: 'cors' },
-//     );
-//     const weatherAPI = await weatherResponse.json();
-    
-//     // define weatherAPI;
-//     const cityWeather = defineWeatherInfo(weatherAPI);
-
-//     WeatherUI.appendWeatherInfo(cityWeather);
-
-//     return cityWeather;
-//   } catch (err) {
-//     // eslint-disable-next-line no-console
-//     console.log(err);
-//   }
-// }
 
 export { currentWeather };
