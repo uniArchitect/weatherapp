@@ -36,21 +36,29 @@ html {
   display: flex;
   flex-direction: column;
   margin: 1em;
-  padding: 1em;
+  /* padding: 1em; */
   border: 1px solid #f8fafc;;
   border-radius: 1em;
 }
 
 .location {
-    margin-bottom: 1em;
+  background-color: gray;
+  /* margin-bottom: 1em; */
+  padding: 1em;
+  border-top-left-radius: 1em;
+  border-top-right-radius: 1em;
+  font-size: large;
+  font-weight: bold;
+}
+
+p {
+  margin: 1em;
 }
 
 #temperature {
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin: 1em;
 }
 
 #feels-like {
-    margin-top: 1em;
-    margin-bottom: 1em;
+    margin: 1em;
 }
