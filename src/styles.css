@@ -30,21 +30,38 @@ html {
   padding: 0.5em;
   padding-left: 1em;
   padding-right: 1em;
-  border-radius: 1em;
+  gap: .5em;
+  border-radius: 1.5em;
 }
 
 .location-input {
   border: none;
   outline: none;
   background: #F9F7F7;
+  font-size: 1em;
+}
+
+.unit-button, .location-submit {
+  width: 2.5em;
+  height: 2.5em;
+  border-radius: 50%;
+  border: none;
+  background-color: #3282B8;
+  cursor: pointer;
 }
 
 .unit-button {
-  border-radius: 50%;
-  width: 2.5em;
-  height: 2.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 0.5em;
+  color: #F9F7F7;
 }
+
+/* .location-submit {
+  background-color: #3282B8;
+  cursor: pointer;
+} */
 
 .weather-container {
   display: grid;
