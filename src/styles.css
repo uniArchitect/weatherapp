@@ -4,7 +4,7 @@ body,
 html {
   height: 95%;
   /* background-color: #f8fafc; */
-  background-color: #1B262C;
+  background-color: #121212;
   /* background-color: #222629; */
   font-family: "Montserrat", sans-serif;
   color: #FFFFFF;
@@ -24,6 +24,28 @@ html {
   gap: 1em;
 }
 
+.location-input-div {
+  display: flex;
+  background-color: #F9F7F7;
+  padding: 0.5em;
+  padding-left: 1em;
+  padding-right: 1em;
+  border-radius: 1em;
+}
+
+.location-input {
+  border: none;
+  outline: none;
+  background: #F9F7F7;
+}
+
+.unit-button {
+  border-radius: 50%;
+  width: 2.5em;
+  height: 2.5em;
+  padding: 0.5em;
+}
+
 .weather-container {
   display: grid;
   grid-template-rows: 1fr;
@@ -41,11 +63,11 @@ html {
   /* border: 1px solid #121212; */
   border-radius: 1em;
   box-shadow: 0 1px 4px 0 rgb(0 0 0 / 20%), 0 3px 10px 0 rgb(0 0 0 / 19%);
-  background-color: #121212;
+  background-color: #1B262C;
 }
 
 .location {
-  background-color: #121212;
+  background-color: #1B262C;
   color: #3282B8; 
   /* opacity: .87; */
   /* margin-bottom: 1em; */
