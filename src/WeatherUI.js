@@ -32,7 +32,7 @@ export default class WeatherUI {
     weatherCard.innerHTML = `
     <div class='location'><span class='location-name'>${cityWeather.location}</span></div>
     <p>${description}</p>
-    <div class='temperature-${weatherLocation}' id='temperature'><span class="${cityWeather.location}" id="temp-toggle" href="#">Temperature:</span> <span>${cityWeather.temperature}</span></div>
+    <div class='temperature-${weatherLocation}' id='temperature'><span>${cityWeather.temperature}</span></div>
     <div class='feels-like-${weatherLocation}' id='feels-like'>Feels Like: <span>${cityWeather.feel}</span></div>
     <p>Humidity: ${cityWeather.humidity}%</p>
     <p>Wind Speed: ${cityWeather.wind}</p>

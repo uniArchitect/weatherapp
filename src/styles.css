@@ -38,7 +38,8 @@ html {
   border: none;
   outline: none;
   background: #F9F7F7;
-  font-size: 1em;
+  font-size: 1.1em;
+  width: 10em;
 }
 
 .unit-button, .location-submit {
