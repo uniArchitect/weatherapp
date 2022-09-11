@@ -29,9 +29,12 @@ export default class WeatherUI {
     // const windSpeedConverted = this.convertMPH(cityWeather);
     const description = this.capEachWord(cityWeather);
 
+    // Weather icon URL = http://openweathermap.org/img/wn/${cityWeather.icon}@2x.png
+    console.log(cityWeather.icon)
     // Define information in weather card
     weatherCard.innerHTML = `
     <div class='location'><span class='location-name'>${cityWeather.location}</span></div>
+    <img src="http://openweathermap.org/img/wn/${cityWeather.icon}@2x.png" class='weather-icon'></img>
     <p class='description'>${description}</p>
     <div class='temperature-${weatherLocation}' id='temperature'><span>${cityWeather.temperature}</span></div>
     <div class='feels-like-${weatherLocation}' id='feels-like'>Feels Like: <span>${cityWeather.feel}</span></div>
