@@ -90,8 +90,8 @@ html {
   background-color: #1b262c;
   color: #3282b8;
   /* opacity: .87; */
-  /* margin-bottom: 1em; */
   margin: 15px;
+  margin-bottom: 0px;
   border-top-left-radius: 1em;
   border-top-right-radius: 1em;
   font-size: 1.75em;
