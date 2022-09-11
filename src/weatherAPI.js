@@ -1,21 +1,21 @@
 /* eslint-disable import/no-cycle */
-import WeatherObjectImperial from './WeatherObjectImperial';
-import WeatherObjectMetric from './WeatherObjectMetric';
-import WeatherUI from './WeatherUI';
+import WeatherObjectImperial from "./WeatherObjectImperial";
+import WeatherObjectMetric from "./WeatherObjectMetric";
+import WeatherUI from "./WeatherUI";
 
 async function fetchGeocode(location) {
   try {
     const geocodeResponse = await fetch(
       `http://api.openweathermap.org/geo/1.0/direct?q=${location},USA&limit=5&appid=1228246814ef93d1b972cc316a42abeb`,
-      { mode: 'cors' },
+      { mode: "cors" }
     );
     const geocode = await geocodeResponse.json();
     const geocodeLat = geocode[0].lat;
     const geocodeLon = geocode[0].lon;
 
-    return { 
-      'latitude': geocodeLat, 
-      'longitude': geocodeLon 
+    return {
+      latitude: geocodeLat,
+      longitude: geocodeLon,
     };
   } catch (err) {
     console.log(err);
@@ -24,34 +24,34 @@ async function fetchGeocode(location) {
 
 async function fetchWeather(latitude, longitude, currentUnit) {
   try {
-    if (currentUnit == '°F') {
+    if (currentUnit == "°F") {
       const weatherResponse = await fetch(
         `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=imperial&appid=1228246814ef93d1b972cc316a42abeb`,
-        { mode: 'cors' },
+        { mode: "cors" }
       );
-  
+
       const weatherImperial = await weatherResponse.json();
 
       return weatherImperial;
-    } else if (currentUnit == '°C') {
-        const weatherResponse = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=1228246814ef93d1b972cc316a42abeb`,
-          { mode: 'cors' },
-        );
-    
-        const weatherMetric = await weatherResponse.json();
+    } else if (currentUnit == "°C") {
+      const weatherResponse = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${latitude}&lon=${longitude}&units=metric&appid=1228246814ef93d1b972cc316a42abeb`,
+        { mode: "cors" }
+      );
 
-        return weatherMetric;
+      const weatherMetric = await weatherResponse.json();
+
+      return weatherMetric;
     }
-
   } catch (err) {
     console.log(err);
   }
 }
 
 function defineWeatherInfo(weatherAPI) {
-  
   const weatherLocation = weatherAPI.name;
+  const weatherIcon = weatherAPI.weather[0].icon;
+  const weatherIconID = weatherAPI.weather[0].id;
   const weatherDescription = weatherAPI.weather[0].description;
   const weatherTemperature = Math.round(weatherAPI.main.temp);
   const weatherFeel = Math.round(weatherAPI.main.feels_like);
@@ -59,12 +59,14 @@ function defineWeatherInfo(weatherAPI) {
   const weatherWindSpeed = Math.round(weatherAPI.wind.speed);
 
   return {
-    'location': weatherLocation,
-    'description': weatherDescription,
-    'temperature': weatherTemperature,
-    'feel': weatherFeel,
-    'humidity': weatherHumidity,
-    'windspeed': weatherWindSpeed
+    location: weatherLocation,
+    icon: weatherIcon,
+    iconID: weatherIconID,
+    description: weatherDescription,
+    temperature: weatherTemperature,
+    feel: weatherFeel,
+    humidity: weatherHumidity,
+    windspeed: weatherWindSpeed,
   };
 
   // If statement to choose Fahrenheit or Celsius
@@ -89,25 +91,29 @@ function defineWeatherInfo(weatherAPI) {
   //     weatherWindSpeedMPH,
   //   );
 
-  //   return cityWeather;    
+  //   return cityWeather;
   // }
 }
 
 function createWeatherObjectImperial(weatherInfo) {
   const weatherLocation = weatherInfo.location;
+  const weatherIcon = weatherInfo.icon;
+  const weatherIconID = weatherInfo.iconID;
   const weatherDescription = weatherInfo.description;
   const weatherTemperature = weatherInfo.temperature;
   const weatherFeel = weatherInfo.feel;
   const weatherHumidity = weatherInfo.humidity;
   const weatherWindSpeed = weatherInfo.windspeed;
-  
+
   const cityWeather = new WeatherObjectImperial(
     weatherLocation,
+    weatherIcon,
+    weatherIconID,
     weatherDescription,
     weatherTemperature,
     weatherFeel,
     weatherHumidity,
-    weatherWindSpeed,
+    weatherWindSpeed
   );
 
   return cityWeather;
@@ -115,36 +121,39 @@ function createWeatherObjectImperial(weatherInfo) {
 
 function createWeatherObjectMetric(weatherInfo) {
   const weatherLocation = weatherInfo.location;
+  const weatherIcon = weatherInfo.icon;
+  const weatherIconID = weatherInfo.iconID;
   const weatherDescription = weatherInfo.description;
   const weatherTemperature = weatherInfo.temperature;
   const weatherFeel = weatherInfo.feel;
   const weatherHumidity = weatherInfo.humidity;
   const weatherWindSpeed = weatherInfo.windspeed;
-  
+
   const cityWeather = new WeatherObjectMetric(
     weatherLocation,
+    weatherIcon,
+    weatherIconID,
     weatherDescription,
     weatherTemperature,
     weatherFeel,
     weatherHumidity,
-    weatherWindSpeed,
+    weatherWindSpeed
   );
 
   return cityWeather;
 }
 
 function addWeatherCard(currentUnit, weatherInfo) {
-  if (currentUnit == '°F') {
+  if (currentUnit == "°F") {
     const cityWeather = createWeatherObjectImperial(weatherInfo);
-
     WeatherUI.appendWeatherInfo(cityWeather);
     return cityWeather;
-  } else if (currentUnit == '°C') {
+  } else if (currentUnit == "°C") {
     const cityWeather = createWeatherObjectMetric(weatherInfo);
 
     WeatherUI.appendWeatherInfo(cityWeather);
     return cityWeather;
-  }  
+  }
 }
 
 // eslint-disable-next-line consistent-return
@@ -155,16 +164,19 @@ async function currentWeather(location, currentUnit) {
     // console.log(geocode);
 
     // Return Imperial or Metric weatherAPI
-    const weatherAPI = await fetchWeather(geocode.latitude, geocode.longitude, currentUnit);
+    const weatherAPI = await fetchWeather(
+      geocode.latitude,
+      geocode.longitude,
+      currentUnit
+    );
     // console.log(weatherAPI);
-    
+
     // define weatherAPI;
     const weatherInfo = defineWeatherInfo(weatherAPI);
     // console.log(weatherInfo);
 
     // Add weather card to web page
     addWeatherCard(currentUnit, weatherInfo);
-
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);

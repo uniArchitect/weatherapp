@@ -2,13 +2,17 @@
 export default class WeatherObjectMetric {
   constructor(
     weatherLocation,
+    weatherIcon,
+    weatherIconID,
     weatherDescription,
     weatherTemperature,
     weatherFeel,
     weatherHumidity,
-    weatherWindSpeed,
+    weatherWindSpeed
   ) {
     this.location = weatherLocation;
+    this.icon = weatherIcon,
+    this.iconID = weatherIconID,
     this.description = weatherDescription;
     this.temperature = `${weatherTemperature} °C`;
     this.feel = `${weatherFeel} °C`;

@@ -2,13 +2,17 @@
 export default class WeatherObjectImperial {
   constructor(
     weatherLocation,
+    weatherIcon,
+    weatherIconID,
     weatherDescription,
     weatherTemperature,
     weatherFeel,
     weatherHumidity,
-    weatherWindSpeed,
+    weatherWindSpeed
   ) {
     this.location = weatherLocation;
+    this.icon = weatherIcon,
+    this.iconID = weatherIconID,
     this.description = weatherDescription;
     this.temperature = `${weatherTemperature} °F`;
     this.feel = `${weatherFeel} °F`;

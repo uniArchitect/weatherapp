@@ -1,29 +1,30 @@
 // eslint-disable-next-line import/no-cycle
-import { WEATHER_CARD_CONTAIN_DIV } from './index';
-import { currentWeather } from './weatherAPI';
+import { WEATHER_CARD_CONTAIN_DIV } from "./index";
+import { currentWeather } from "./weatherAPI";
 
 export default class WeatherUI {
   // Description string is adjusted to be capitalized
   static capEachWord = (cityWeather) => {
-    const description = cityWeather.description.split(' ');
+    const description = cityWeather.description.split(" ");
     // console.log(description);
 
     // eslint-disable-next-line no-plusplus
     for (let i = 0; i < description.length; i++) {
-      description[i] = description[i][0].toUpperCase() + description[i].substr(1);
+      description[i] =
+        description[i][0].toUpperCase() + description[i].substr(1);
     }
 
-    const newDescription = description.join(' ');
+    const newDescription = description.join(" ");
 
     return newDescription;
   };
 
   static appendWeatherInfo = (cityWeather) => {
     // Set weather div element and class and id
-    const weatherCard = document.createElement('div');
-    const weatherLocation = `${cityWeather.location}`.replaceAll(' ', '-');
+    const weatherCard = document.createElement("div");
+    const weatherLocation = `${cityWeather.location}`.replaceAll(" ", "-");
     weatherCard.classList.add(`weather-card-${weatherLocation}`);
-    weatherCard.setAttribute('id', 'weather-card');
+    weatherCard.setAttribute("id", "weather-card");
 
     // const windSpeedConverted = this.convertMPH(cityWeather);
     const description = this.capEachWord(cityWeather);
@@ -44,20 +45,19 @@ export default class WeatherUI {
   };
 
   static changeWeatherUnit = (target) => {
-
     console.log(target.nextElementSibling);
 
     const weatherCard = `${target.classList}`;
-    const locationName = weatherCard.replaceAll('-', ' ');
+    const locationName = weatherCard.replaceAll("-", " ");
     // Gives us the city name for API (e.g. New York)
 
     // If nextElementSibling includes F or C then execute Metric / Imperial weather functions
-    if (target.nextElementSibling.innerText.includes('°F') == true) {
+    if (target.nextElementSibling.innerText.includes("°F") == true) {
       // Function - Replace Imperial units with Metric
       return currentWeather(locationName, currentUnit);
     } else {
       // Function - Replace Metric units with Imperial
       return currentWeather(locationName, currentUnit);
     }
-  }
+  };
 }
